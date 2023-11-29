@@ -3,7 +3,7 @@
 // Constants
 const basePrice = 10;
 const ingredients = {
-  pepperoni: { name: 'pepperoni', price: 1 },
+  pepperoni: { name: 'Spicy salami', price: 1 },
   mushrooms: { name: 'Mushrooms', price: 1 },
   greenPeppers: { name: 'Green Peppers', price: 1 },
   whiteSauce: { name: 'White sauce', price: 3 },
@@ -79,12 +79,52 @@ function renderGlutenFreeCrust() {
 }
 
 function renderButtons() {
-  // Iteration 3: add/remove the class "active" of each `<button class="btn">`
+  document.querySelectorAll('.btn').forEach((oneBtn) => {
+    if (state.keys) {oneBtn.classList.add("active");}
+    else {oneBtn.classList.remove("active");}
+  });
 }
 
 function renderPrice() {
-  // Iteration 4: change the HTML of `<aside class="panel price">`
+  const pepPrice = document.getElementById('pepPrice');
+  if (state.pepperoni) {
+    pepPrice.style.visibility = 'visible';
+    pepPrice.innerHTML = `$${ingredients.pepperoni.price} ${ingredients.pepperoni.name}`;
+  } else {pepPrice.style.visibility = 'hidden'}
+  const musPrice = document.getElementById('musPrice');
+  if (state.mushrooms) {
+    musPrice.style.visibility = 'visible';
+    musPrice.innerHTML = `$${ingredients.mushrooms.price} ${ingredients.mushrooms.name}`;
+  } else {musPrice.style.visibility = 'hidden'}
+  const grpPrice = document.getElementById('grpPrice');
+  if (state.greenPeppers) {
+    grpPrice.style.visibility = 'visible';
+    grpPrice.innerHTML = `$${ingredients.greenPeppers.price} ${ingredients.greenPeppers.name}`;
+  } else {grpPrice.style.visibility = 'hidden'}
+  const whsPrice = document.getElementById('whsPrice');
+  if (state.whiteSauce) {
+    whsPrice.style.visibility = 'visible';
+    whsPrice.innerHTML = `$${ingredients.whiteSauce.price} ${ingredients.whiteSauce.name}`;
+  } else {whsPrice.style.visibility = 'hidden'}
+  const cruPrice = document.getElementById('cruPrice');
+  if (state.glutenFreeCrust) {
+    cruPrice.style.visibility = 'visible';
+    cruPrice.innerHTML = `$${ingredients.glutenFreeCrust.price} ${ingredients.glutenFreeCrust.name}`;
+  } else {cruPrice.style.visibility = 'hidden'}
+
+  const total = document.getElementById('total');
+  const arrOfPrices = [];
+  if (state.pepperoni) {arrOfPrices.push(ingredients.pepperoni.price)}
+  if (state.mushrooms) {arrOfPrices.push(ingredients.mushrooms.price)}
+  if (state.greenPeppers) {arrOfPrices.push(ingredients.greenPeppers.price)}
+  if (state.whiteSauce) {arrOfPrices.push(ingredients.whiteSauce.price)}
+  if (state.glutenFreeCrust) {arrOfPrices.push(ingredients.glutenFreeCrust.price)}
+ 
+  const totalPrice = arrOfPrices.reduce((acc, eachPprice) => acc + eachPprice , basePrice);
+
+  total.innerHTML = `$${totalPrice}`;
 }
+
 
 renderEverything();
 
